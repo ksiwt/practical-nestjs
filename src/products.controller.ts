@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Render } from '@nestjs/common';
+import { Controller, Get, Param, Render, Res } from '@nestjs/common';
 import { ProductsService } from './models/products.service';
 import { response } from 'express';
 
@@ -17,14 +17,14 @@ export class ProductsController {
   }
 
   @Get('/:id')
-  async show(@Param() params) {
+  async show(@Param() params, @Res() response) {
     const product = await this.productsService.findOne(params.id);
     if (product === undefined) {
       return response.redirect('/products');
     }
     const viewData = [];
-    viewData['title'] = product.name + ' - Online Store';
-    viewData['subtitle'] = product.name + ' - Product Information';
+    viewData['title'] = product.getName() + ' - Online Store';
+    viewData['subtitle'] = product.getName() + ' - Product Information';
     viewData['product'] = product;
 
     return response.render('products/show', { viewData: viewData });
