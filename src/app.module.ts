@@ -5,6 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './models/product.entity';
 import { ProductsService } from './models/products.service';
 import { AdminModule } from './admin/admin.module';
+import { User } from './models/user.entity';
+import { AuthModule } from './auth/auth.module';
+import { UserService } from './models/user.service';
 
 @Global()
 @Module({
@@ -19,11 +22,12 @@ import { AdminModule } from './admin/admin.module';
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Product]),
+    TypeOrmModule.forFeature([Product, User]),
     AdminModule,
+    AuthModule,
   ],
   controllers: [AppController, ProductsController],
-  providers: [ProductsService],
-  exports: [ProductsService],
+  providers: [ProductsService, UserService],
+  exports: [ProductsService, UserService],
 })
 export class AppModule {}
