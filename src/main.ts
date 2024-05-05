@@ -4,6 +4,7 @@ import * as hbs from 'hbs';
 import * as hbsUtils from 'hbs-utils';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import * as session from 'express-session';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -21,6 +22,18 @@ async function bootstrap() {
 
   // Configures the view template engine to be used in the Express application.
   app.setViewEngine('hbs');
+
+  app.use(
+    session({
+      secret: 'nest-book',
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
+  app.use(function (req, res, next) {
+    res.locals.session = req.session;
+    next();
+  });
 
   await app.listen(3000);
 }
