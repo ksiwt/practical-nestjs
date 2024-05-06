@@ -11,6 +11,7 @@ import { UsersService } from './models/users.service';
 import { CartModule } from './cart/cart.module';
 import { Order } from './models/order.entity';
 import { OrdersService } from './models/orders.service';
+import { AccountModule } from './account/account.models';
 
 @Global()
 @Module({
@@ -29,6 +30,7 @@ import { OrdersService } from './models/orders.service';
     AdminModule,
     AuthModule,
     CartModule,
+    AccountModule,
   ],
   controllers: [AppController, ProductsController],
   providers: [ProductsService, UsersService, OrdersService],
