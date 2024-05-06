@@ -5,7 +5,7 @@ import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
@@ -26,5 +26,13 @@ export class UserService {
       }
     }
     return null;
+  }
+
+  findOne(id: string): Promise<User> {
+    return this.userRepository.findOneBy({ id: Number(id) });
+  }
+
+  updateBalance(id: number, balance: number) {
+    return this.userRepository.update(id, { balance: balance });
   }
 }

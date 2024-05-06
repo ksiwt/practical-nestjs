@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Post, Render, Req, Res } from '@nestjs/common';
-import { UserService } from '../models/user.service';
+import { UsersService } from '../models/users.service';
 import { User } from '../models/user.entity';
 import { request, response } from 'express';
 import { UserValidator } from '../validators/user.validator';
 
 @Controller('/auth')
 export class AuthController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UsersService) {}
 
   @Get('/register')
   @Render('auth/register')

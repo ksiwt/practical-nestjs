@@ -7,8 +7,10 @@ import { ProductsService } from './models/products.service';
 import { AdminModule } from './admin/admin.module';
 import { User } from './models/user.entity';
 import { AuthModule } from './auth/auth.module';
-import { UserService } from './models/user.service';
+import { UsersService } from './models/users.service';
 import { CartModule } from './cart/cart.module';
+import { Order } from './models/order.entity';
+import { OrdersService } from './models/orders.service';
 
 @Global()
 @Module({
@@ -23,13 +25,13 @@ import { CartModule } from './cart/cart.module';
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Product, User]),
+    TypeOrmModule.forFeature([Product, User, Order]),
     AdminModule,
     AuthModule,
     CartModule,
   ],
   controllers: [AppController, ProductsController],
-  providers: [ProductsService, UserService],
-  exports: [ProductsService, UserService],
+  providers: [ProductsService, UsersService, OrdersService],
+  exports: [ProductsService, UsersService, OrdersService],
 })
 export class AppModule {}
